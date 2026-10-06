@@ -1,13 +1,36 @@
 [
   {
     "name": "week",
-    "title": "This week",
-    "subtitle": "Collections for Claude Code: what needs attention, rendered by npm run view",
+    "title": "Collections week",
+    "subtitle": "Internal working report; fictional demo until you import your records.",
     "sections": [
       {
-        "title": "Needs attention",
-        "note": "TODO(author): point this at the industry's attention view (overdue, stuck, quiet).",
-        "sql": "select 'replace me' as item, 'TODO(author)' as why"
+        "title": "Loans due",
+        "sql": "select code,name,borrower,due_on,days_overdue from v_loans where status='active' and due_on<=current_date+30 order by due_on"
+      },
+      {
+        "title": "Actions",
+        "sql": "select * from v_attention order by rule,code"
+      }
+    ]
+  },
+  {
+    "name": "exhibitions",
+    "title": "Exhibition preparation",
+    "sections": [
+      {
+        "title": "Condition and loan conflicts",
+        "sql": "select * from v_exhibition_readiness order by exhibition,code"
+      }
+    ]
+  },
+  {
+    "name": "catalogue",
+    "title": "Collection inventory",
+    "sections": [
+      {
+        "title": "Locations and care",
+        "sql": "select code,name,location,normal_location,grade,next_review,inventory_checked_on from v_catalogue order by code"
       }
     ]
   }

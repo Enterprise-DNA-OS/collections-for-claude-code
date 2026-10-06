@@ -1,0 +1,42 @@
+[
+  [
+    "Which loans are due back within a month, including overdue objects?",
+    "loans-due"
+  ],
+  [
+    "Which objects need care before an exhibition opens?",
+    "exhibition-readiness"
+  ],
+  [
+    "Which planned loans need a condition review before their return date?",
+    "loan-condition"
+  ],
+  [
+    "Which locations hold objects with poor or urgent condition?",
+    "location-load"
+  ],
+  [
+    "Which objects lack provenance or an accepted acquisition?",
+    "provenance-gaps"
+  ],
+  [
+    "Which objects have no recorded current location?",
+    "unlocated"
+  ],
+  [
+    "Which objects have not had an inventory check in a year?",
+    "inventory-gaps"
+  ],
+  [
+    "Which objects have no recorded rights note?",
+    "rights-review"
+  ],
+  [
+    "Which overseas loans still need an export assessment?",
+    "export-review"
+  ],
+  [
+    "Which makers have the most objects needing a condition review?",
+    "maker-care"
+  ]
+]

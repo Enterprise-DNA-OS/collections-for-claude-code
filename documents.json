@@ -1,11 +1,64 @@
 [
   {
-    "name": "example",
-    "title": "TODO(author): the first document this industry must produce",
-    "for_each": "select gen_random_uuid() as id, 'Example' as name",
-    "file": "name",
+    "name": "loan-schedule",
+    "title": "DRAFT loan schedule",
+    "for_each": "select id,code from loans",
+    "file": "code",
     "sections": [
-      { "title": "Details", "sql": "select 'replace me' as item, $1::text as record_id" }
+      {
+        "title": "Recorded agreement",
+        "note": "Working schedule only. Attach signed terms, verify export permissions and insurance, and obtain registrar approval before dispatch.",
+        "sql": "select code,name,status,starts_on,due_on,source_country,destination_country,agreement_ref,insurance_until from loans where id=$1"
+      },
+      {
+        "title": "Objects",
+        "sql": "select o.code,o.name,li.export_decision,li.reviewed_by,li.permit_ref from loan_items li join objects o on o.id=li.object_id where loan_id=$1 order by o.code"
+      }
+    ]
+  },
+  {
+    "name": "condition-report",
+    "title": "Condition record",
+    "for_each": "select id,code from objects",
+    "file": "code",
+    "sections": [
+      {
+        "title": "Object",
+        "sql": "select code,name,description,maker from objects where id=$1"
+      },
+      {
+        "title": "Inspections",
+        "sql": "select checked_on,checked_by,grade,findings,next_review from conditions where object_id=$1 order by checked_on desc"
+      }
+    ]
+  },
+  {
+    "name": "accession-receipt",
+    "title": "DRAFT acquisition receipt",
+    "for_each": "select id,code from accessions",
+    "file": "code",
+    "sections": [
+      {
+        "title": "Receipt and decision",
+        "note": "Does not itself transfer title. Attach the signed deed and follow the museum acquisition policy.",
+        "sql": "select a.code,a.name,a.received_on,a.method,a.decision,a.title_evidence,p.name as source from accessions a left join people p on p.id=a.source_id where a.id=$1"
+      },
+      {
+        "title": "Object list",
+        "sql": "select code,name,description from objects where accession_id=$1 order by code"
+      }
+    ]
+  },
+  {
+    "name": "movement-history",
+    "title": "Object movement record",
+    "for_each": "select id,code from objects",
+    "file": "code",
+    "sections": [
+      {
+        "title": "Recorded moves",
+        "sql": "select m.moved_at,f.name as from_location,t.name as to_location,m.moved_by,m.authorised_by,m.reason from movements m left join locations f on f.id=m.from_location_id join locations t on t.id=m.to_location_id where m.object_id=$1 order by moved_at"
+      }
     ]
   }
 ]
